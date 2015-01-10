@@ -1,56 +1,60 @@
-﻿using UnityEngine;
+﻿using Assets.UDB.Scripts.Core;
+using UnityEngine;
 
-public enum PeriodicMethod
+namespace Assets.UDB.Scripts.Unity
 {
-    OnUpdate,
-    OnLateUpdate,
-    OnFixedUpdate
-}
-
-[ExecuteInEditMode]
-public class PeriodicDataBinding : MonoBehaviour
-{
-    public bool UpdateInEditMode    = false;
-    public bool UpdateAtStart       = true;
-
-    public ComponentMemberInfo  SourceInfo;
-    public ComponentMemberInfo  TargetInfo;
-    public DataBindingExpr      DataBindingExpr;
-    public PeriodicMethod       PeriodicMethod;
-
-	private void Start          ()
+    public enum PeriodicMethod
     {
-	    if (Application.isPlaying)
+        OnUpdate,
+        OnLateUpdate,
+        OnFixedUpdate
+    }
+
+    [ExecuteInEditMode]
+    public class PeriodicDataBinding : MonoBehaviour
+    {
+        public bool UpdateInEditMode    = false;
+        public bool UpdateAtStart       = true;
+
+        public ComponentMemberInfo  SourceInfo;
+        public ComponentMemberInfo  TargetInfo;
+        public DataBindingExpr      DataBindingExpr;
+        public PeriodicMethod       PeriodicMethod;
+
+        private void Start          ()
         {
-            DataBindingExpr.Source = SourceInfo.AsDataRef();
-            DataBindingExpr.Target = TargetInfo.AsDataRef();       
-	    }
+            if (Application.isPlaying)
+            {
+                DataBindingExpr.Source = SourceInfo.AsDataRef();
+                DataBindingExpr.Target = TargetInfo.AsDataRef();       
+            }
         
-        if (CanUpdate() && UpdateAtStart)
-	        DataBindingExpr.Update();
-	}
-	private void Update         ()
-    {
-        if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnUpdate)
-            DataBindingExpr.Update();
-	}
-    private void LateUpdate     ()
-    {
-        if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnLateUpdate)
-            DataBindingExpr.Update();
-    }
-    private void FixedUpdate    ()
-    {
-        if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnFixedUpdate)
-            DataBindingExpr.Update();
-    }
+            if (CanUpdate() && UpdateAtStart)
+                DataBindingExpr.Update();
+        }
+        private void Update         ()
+        {
+            if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnUpdate)
+                DataBindingExpr.Update();
+        }
+        private void LateUpdate     ()
+        {
+            if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnLateUpdate)
+                DataBindingExpr.Update();
+        }
+        private void FixedUpdate    ()
+        {
+            if (CanUpdate() && PeriodicMethod == PeriodicMethod.OnFixedUpdate)
+                DataBindingExpr.Update();
+        }
 
-    private bool CanUpdate      ()
-    {
+        private bool CanUpdate      ()
+        {
 #if UNITY_EDITOR
-        if (!UpdateInEditMode && !Application.isPlaying)
-            return false;
+            if (!UpdateInEditMode && !Application.isPlaying)
+                return false;
 #endif
-        return true;
+            return true;
+        }
     }
 }
