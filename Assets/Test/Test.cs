@@ -1,89 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Assets.UDB.Scripts.Unity;
 using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    public ComponentMemberInfo  SourceInfo;
-    public ComponentMemberInfo  TargetInfo;
-    public DataBindingExpr      DataBindingExpr;
-
-    public delegate void TestHandler(string arg1, int arg2);
-    public event TestHandler TestOccured;
-
-    public string prefixString = "PREFIX!!! ";
-    public Weapon CurrentWeapon = new Weapon() {Ammo = 33, Desc = "LOL WEP DESC", Name = "LOL WEP"};
-
-    public List<Weapon> weapons = new List<Weapon>(); 
+    public delegate void StringIntDelegate(string arg1, int arg2);
+    public event StringIntDelegate StringIntEvent;
 
 	private void Start ()
-	{
-        weapons.Add(new Weapon() { Ammo = 12, Desc = "Simple gun.", Name = "Pistol" });
-        weapons.Add(new Weapon() { Ammo = 30, Desc = "Machine gun.", Name = "MP5" });
-        weapons.Add(new Weapon() { Ammo = 50, Desc = "Ultra machine gun.", Name = "AK74" });
+    {
+        GetComponent<EventTriggeredDataBinding>()   .DataBindingExpr.FormatMethod = FormatMethod;
+        GetComponent<PeriodicDataBinding>()         .DataBindingExpr.FormatMethod = FormatMethod2;
 
-        GetComponent<PeriodicDataBinding>().DataBindingExpr.FormatMethod = FormatMethod;
-
-	    //DataBindingExpr.Source = SourceInfo.AsDataRef();
-	    //DataBindingExpr.Target = TargetInfo.AsDataRef();
-        //DataBindingExpr.FormatMethod = o => ((int) o + 42).ToString();
-        //DataBindingExpr.Update();
-        //Debug.Log(DataBindingExpr);
-
-        //var eventRef = new EventRef(this, "TestOccured");
-	    //eventRef.EventRaised += OnEventRaised;
-        //TestOccured("LOL", 15);
-        //TestOccured("LOL", 25);
-        //eventRef.Dispose();
-        //if(TestOccured != null)
-        //    TestOccured("LOL", 25);
-
-        //var e1 = new EventBinding(new EventRef(this, "TestOccured"), new MethodRef(this, "NullHandler"));
-        //var e2 = new EventBinding(new EventRef(this, "TestOccured"), new MethodRef(this, "MatchHandler"));
-        //Debug.Log(e1);
-        //Debug.Log(e2);
-
-        if(TestOccured != null)
-            TestOccured("LOL", 25);
-
-        //e1.Unbind();
-
-        if (TestOccured != null)
-            TestOccured("LOL", 35);
-
-        //e2.Unbind();
-
-        if (TestOccured != null)
-            TestOccured("LOL", 45);
+        if (StringIntEvent != null)
+            StringIntEvent("LOL", 25);
+        if (StringIntEvent != null)
+            StringIntEvent("LOL", 35);
+        if (StringIntEvent != null)
+            StringIntEvent("LOL", 45);
 	}
 
-    private object FormatMethod(object o)
+    public object FormatMethod(object input)
     {
-        var weps = (List<Weapon>) o;
-
-        return null;
-        //return new List<WeaponUI>
+        return ((int)input + 666);
+    }
+    public object FormatMethod2(object input)
+    {
+        return ((int)input + 42);
     }
 
-    private void OnEventRaised(EventRef eventRef)
+    public static void StringIntHandler(string arg1, int arg2)
     {
-        Debug.Log("Event raised: " + eventRef);
+        Debug.Log("StringIntHandler invoked! Values: " + arg1 + " " + arg2);
     }
-
-    public static void MatchHandler(string arg1, int arg2)
+    public void VoidHandler()
     {
-        Debug.Log("Match handler invoked! Values: " + arg1 + " " + arg2);
+        Debug.Log("VoidHandler invoked!");
     }
-    public void NullHandler()
+    public void KeyCodeHandler(KeyCode keyCode)
     {
-        Debug.Log("Null handler invoked!");
+        Debug.Log("KeyCodeHandler invoked! Values: " + keyCode);
     }
-    public void KeyHandler(KeyCode keyCode)
+    public void KeyCodeAndKeyModifierHandler(KeyCode keyCode, KeyModifier keyModifier)
     {
-        Debug.Log("Key handler invoked: " + keyCode);
-    }
-    public void KeyAndModifierHandler(KeyCode keyCode, KeyModifier keyModifier)
-    {
-        Debug.Log("Key & modifier handler invoked: " + keyCode + " " + keyModifier);
+        Debug.Log("KeyCodeAndKeyModifierHandler invoked! Values: " + keyCode + " " + keyModifier);
     }
 }
