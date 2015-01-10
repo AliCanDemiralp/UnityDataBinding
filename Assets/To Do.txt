@@ -1,7 +1,4 @@
 List Bindings
-
-Exception Handling
-
 Editor Scripts (Note: Format Function Editor)
 
 Comments
