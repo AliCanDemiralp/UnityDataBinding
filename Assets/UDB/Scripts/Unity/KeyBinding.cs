@@ -1,4 +1,5 @@
 ﻿using Assets.UDB.Scripts.Core;
+using Assets.UDB.Scripts.Unity.Info;
 using UnityEngine;
 
 namespace Assets.UDB.Scripts.Unity
@@ -28,7 +29,7 @@ namespace Assets.UDB.Scripts.Unity
         public KeyCode              KeyCode;
         public KeyModifier          KeyModifier;
         public KeyAction            KeyAction;
-        public ComponentMemberInfo  MethodInfo;
+        public CompMethodInfo  MethodInfo;
 
         private MethodRef           _methodRef;
         private HandlerMethodType   _methodType;
@@ -82,7 +83,7 @@ namespace Assets.UDB.Scripts.Unity
                 return;
             }
 
-            _methodRef = MethodInfo.AsMethodRef();
+            _methodRef = MethodInfo.Ref;
 
             if (_methodRef == null)
             {
