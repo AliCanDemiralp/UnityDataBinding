@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.UDB.Scripts.Core;
+using Assets.UDB.Scripts.Unity.Info;
+using UnityEngine;
 
 namespace Assets.UDB.Scripts.Unity
 {
@@ -6,8 +8,8 @@ namespace Assets.UDB.Scripts.Unity
     {
         public bool BindAtStart = true;
 
-        public ComponentMemberInfo  EventInfo;
-        public ComponentMemberInfo  HandlerInfo;
+        public CompEventInfo EventInfo;
+        public CompMethodInfo HandlerInfo;
         
         private Core.EventBinding   _coreEventBinding;
 
@@ -27,7 +29,7 @@ namespace Assets.UDB.Scripts.Unity
             if(_coreEventBinding == null)
                 _coreEventBinding = new Core.EventBinding();
 
-            if (!_coreEventBinding.Setup(EventInfo.AsEventRef(), HandlerInfo.AsMethodRef()))
+            if (!_coreEventBinding.Setup(EventInfo.Ref, HandlerInfo.Ref))
             {
                 Debug.Log("Event binding setup failure! Event / handler parameters not compatible!");
                 return;
