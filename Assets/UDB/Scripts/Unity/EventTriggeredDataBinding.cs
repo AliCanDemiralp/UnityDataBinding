@@ -1,4 +1,5 @@
 ﻿using Assets.UDB.Scripts.Core;
+using Assets.UDB.Scripts.Unity.Info;
 using UnityEngine;
 
 namespace Assets.UDB.Scripts.Unity
@@ -8,9 +9,9 @@ namespace Assets.UDB.Scripts.Unity
         public bool BindAtStart     = true;
         public bool UpdateAtStart   = true;
 
-        public ComponentMemberInfo  TriggerEventInfo;
-        public ComponentMemberInfo  SourceInfo;
-        public ComponentMemberInfo  TargetInfo;
+        public CompEventInfo   TriggerEventInfo;
+        public CompDataInfo    SourceInfo;
+        public CompDataInfo    TargetInfo;
 
         public DataBindingExpr      DataBindingExpr;
 
@@ -29,12 +30,12 @@ namespace Assets.UDB.Scripts.Unity
 
         private void Start          ()
         {
-            DataBindingExpr.Source = SourceInfo.AsDataRef();
-            DataBindingExpr.Target = TargetInfo.AsDataRef();
+            DataBindingExpr.Source = SourceInfo.Ref;
+            DataBindingExpr.Target = TargetInfo.Ref;
 
             if (_coreDataBinding == null)
                 _coreDataBinding = new Core.EventTriggeredDataBinding();
-            if (!_coreDataBinding.Setup(DataBindingExpr, TriggerEventInfo.AsEventRef()))
+            if (!_coreDataBinding.Setup(DataBindingExpr, TriggerEventInfo.Ref))
             {
                 Debug.Log("Event-triggered data binding setup failure!");
                 enabled = false;

@@ -1,4 +1,5 @@
 ﻿using Assets.UDB.Scripts.Core;
+using Assets.UDB.Scripts.Unity.Info;
 using UnityEngine;
 
 namespace Assets.UDB.Scripts.Unity
@@ -16,8 +17,8 @@ namespace Assets.UDB.Scripts.Unity
         public bool UpdateInEditMode    = false;
         public bool UpdateAtStart       = true;
 
-        public ComponentMemberInfo  SourceInfo;
-        public ComponentMemberInfo  TargetInfo;
+        public CompDataInfo    SourceInfo;
+        public CompDataInfo    TargetInfo;
         public DataBindingExpr      DataBindingExpr;
         public PeriodicMethod       PeriodicMethod;
 
@@ -25,8 +26,8 @@ namespace Assets.UDB.Scripts.Unity
         {
             if (Application.isPlaying)
             {
-                DataBindingExpr.Source = SourceInfo.AsDataRef();
-                DataBindingExpr.Target = TargetInfo.AsDataRef();       
+                DataBindingExpr.Source = SourceInfo.Ref;
+                DataBindingExpr.Target = TargetInfo.Ref;       
             }
         
             if (CanUpdate() && UpdateAtStart)
