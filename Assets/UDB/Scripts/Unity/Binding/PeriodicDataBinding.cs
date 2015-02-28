@@ -2,7 +2,7 @@
 using Assets.UDB.Scripts.Unity.Info;
 using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity
+namespace Assets.UDB.Scripts.Unity.Binding
 {
     public enum PeriodicMethod
     {
@@ -17,17 +17,17 @@ namespace Assets.UDB.Scripts.Unity
         public bool UpdateInEditMode    = false;
         public bool UpdateAtStart       = true;
 
-        public CompDataInfo    SourceInfo;
-        public CompDataInfo    TargetInfo;
-        public DataBindingExpr      DataBindingExpr;
-        public PeriodicMethod       PeriodicMethod;
+        public CompDataInfo     SourceInfo;
+        public CompDataInfo     TargetInfo;
+        public DataBindingExpr  DataBindingExpr;
+        public PeriodicMethod   PeriodicMethod;
 
         private void Start          ()
         {
             if (Application.isPlaying)
             {
                 DataBindingExpr.Source = SourceInfo.Ref;
-                DataBindingExpr.Target = TargetInfo.Ref;       
+                DataBindingExpr.Target = TargetInfo.Ref;   
             }
         
             if (CanUpdate() && UpdateAtStart)

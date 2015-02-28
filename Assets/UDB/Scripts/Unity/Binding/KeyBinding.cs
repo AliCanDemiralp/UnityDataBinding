@@ -2,7 +2,7 @@
 using Assets.UDB.Scripts.Unity.Info;
 using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity
+namespace Assets.UDB.Scripts.Unity.Binding
 {
     public enum KeyModifier
     {
