@@ -1,5 +1,3 @@
-List Bindings
-Editor Scripts (Note: Format Function Editor)
-
+Proxy Binding?
 Comments
 Testing & Demos
