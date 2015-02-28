@@ -1,4 +1,4 @@
-﻿using Assets.UDB.Scripts.Unity;
+﻿using Assets.UDB.Scripts.Unity.Binding;
 using UnityEngine;
 
 public class Test : MonoBehaviour
