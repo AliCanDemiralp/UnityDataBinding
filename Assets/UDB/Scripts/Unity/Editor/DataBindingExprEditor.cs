@@ -25,7 +25,7 @@ namespace Assets.UDB.Scripts.Unity.Editor
             if (GUI.Button(contentPosition, "Edit Format Function", EditorStyles.popup))
                 TextEditor.Show(
                     "Format Function Editor", 
-                    "Please enter the format below.\nYou can use 'source' to refer to data binding expression.",
+                    "Please enter the format below.\nYou can use 'source' to refer to data binding expression.\nAn example from int source to string target would be: return \"Value: \" + source;",
                     dbe.FormatString, (text) => { dbe.FormatString = text; });
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
