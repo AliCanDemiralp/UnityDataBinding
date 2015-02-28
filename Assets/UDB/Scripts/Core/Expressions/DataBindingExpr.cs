@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using Mono.CSharp;
+using UnityEngine;
 
 namespace Assets.UDB.Scripts.Core
 {
@@ -15,7 +18,22 @@ namespace Assets.UDB.Scripts.Core
         public DataRef              Source;
         public DataRef              Target;
         public BindingMode          BindingMode;
+
+        [SerializeField]
         public Func<object, object> FormatMethod;
+
+        [SerializeField]
+        private string              _formatString;
+        public  string              FormatString
+        {
+            get { return _formatString; }
+            set
+            {
+                _formatString = value;
+                Debug.Log("Format string updated!");
+                UpdateFormatMethodFromString();
+            }
+        }
 
         // Cached value from last update used for bi-directional updates.
         private object _lastValue;
@@ -33,31 +51,42 @@ namespace Assets.UDB.Scripts.Core
 
         public void Update()
         {
+            if (!string.IsNullOrEmpty(FormatString) && FormatMethod == null)
+                UpdateFormatMethodFromString();
+
             if (Source == null || Target == null)
                 return;
 
-            if (BindingMode == BindingMode.OneWay)
-                Target.Value = FormatMethod == null ? Source.Value : FormatMethod.Invoke(Source.Value);
-            else if (BindingMode == BindingMode.OneWayToSource)
-                Source.Value = FormatMethod == null ? Target.Value : FormatMethod.Invoke(Target.Value);
-            else if (BindingMode == BindingMode.TwoWay)
+            try
             {
-                var current = FormatMethod == null ? Source.Value : FormatMethod.Invoke(Source.Value);
-                if (_lastValue == null || !_lastValue.Equals(current))
+                if (BindingMode == BindingMode.OneWay)
+                    Target.Value = FormatMethod == null ? Source.Value : FormatMethod.Invoke(Source.Value);
+                else if (BindingMode == BindingMode.OneWayToSource)
+                    Source.Value = FormatMethod == null ? Target.Value : FormatMethod.Invoke(Target.Value);
+                else if (BindingMode == BindingMode.TwoWay)
                 {
-                    _lastValue   = current;
-                    Target.Value = current;
-                }
-                else
-                {
-                    current = FormatMethod == null ? Target.Value : FormatMethod.Invoke(Target.Value);
-                    if (_lastValue.Equals(current))
-                        return;
+                    var current = FormatMethod == null ? Source.Value : FormatMethod.Invoke(Source.Value);
+                    if (_lastValue == null || !_lastValue.Equals(current))
+                    {
+                        _lastValue = current;
+                        Target.Value = current;
+                    }
+                    else
+                    {
+                        current = FormatMethod == null ? Target.Value : FormatMethod.Invoke(Target.Value);
+                        if (_lastValue.Equals(current))
+                            return;
 
-                    _lastValue   = current;
-                    Source.Value = current;
+                        _lastValue = current;
+                        Source.Value = current;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Debug.Log("Conversion error on " + ToString() + " : " + e.Message);
+            }
+            
         }
 
         public override string ToString()
@@ -80,6 +109,31 @@ namespace Assets.UDB.Scripts.Core
             }
 
             return "Data Binding Expression: " + sourceString + bindingString + targetString;
+        }
+
+        private void UpdateFormatMethodFromString()
+        {
+            if (Source == null)
+            {
+                Debug.Log("Format method not set. Source type is unknown at compile-time.");
+                return;
+            }
+
+            Evaluator.Init(new string[] { });
+            Evaluator.ReferenceAssembly(Assembly.GetExecutingAssembly());
+            Evaluator.Run("using System;");
+            Evaluator.Run("using UnityEngine;");
+            try
+            {
+                FormatMethod = (Func<object, object>)Evaluator.Evaluate("new Func<object, object>((src) => { " +
+                    Source.Type + " source = (" + Source.Type + ") src;" + FormatString + " });");
+            }
+            catch (Exception)
+            {
+                Debug.Log("Syntax error on format string of " + ToString() + " : " + FormatString);
+                return;
+            }
+            Debug.Log("Format method set from string: " + FormatString);
         }
     }
 }
