@@ -1,14 +1,13 @@
-﻿using Assets.UDB.Scripts.Core;
-using UnityEngine;
+﻿using System;
+using Assets.UDB.Scripts.Core;
 using UnityEditor;
+using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity
+namespace Assets.UDB.Scripts.Unity.Editor
 {
-    [CustomPropertyDrawer(typeof (DataBindingExpr))]
+    [CustomPropertyDrawer(typeof(DataBindingExpr))]
     public class DataBindingExprEditor : PropertyDrawer
     {
-        private string _formatString;
-
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var contentPosition = EditorGUI.PrefixLabel(position, label);
@@ -19,14 +18,19 @@ namespace Assets.UDB.Scripts.Unity
 
             EditorGUI.PropertyField(contentPosition, property.FindPropertyRelative("BindingMode"), GUIContent.none);
 
-            // contentPosition.y += 18;
+            contentPosition.y += 18;
 
-            // EditorGUI.TextArea(contentPosition, _formatString);
+            var dbe = (DataBindingExpr) fieldInfo.GetValue(property.serializedObject.targetObject);
+
+            if (GUI.Button(contentPosition, "Edit Format Function", EditorStyles.popup))
+                TextEditor.Show(
+                    "Format Function Editor", 
+                    "Please enter the format below.\nYou can use 'source' to refer to data binding expression.",
+                    dbe.FormatString, (text) => { dbe.FormatString = text; });
         }
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return 16F;
-            // return 34F;
+            return 34F;
         }
     }
 }

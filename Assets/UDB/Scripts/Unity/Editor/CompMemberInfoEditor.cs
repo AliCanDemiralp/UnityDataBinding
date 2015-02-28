@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Reflection;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity
+namespace Assets.UDB.Scripts.Unity.Editor
 {
     public abstract class CompMemberInfoEditor : PropertyDrawer
     {
