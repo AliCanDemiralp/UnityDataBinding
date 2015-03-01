@@ -21,8 +21,7 @@ namespace Assets.UDB.Scripts.ListView
 
         public void SetItemTransform(GameObject item, ListView listView)
         {
-            //TODO: Implement
-            throw new System.NotImplementedException();
+            item.transform.parent = _gridLayout.transform;
         }
     }
 }

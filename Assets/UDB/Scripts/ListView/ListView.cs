@@ -83,6 +83,8 @@ namespace Assets.UDB.Scripts.ListView
                 
                 //Inflate the view for the model using adapter;
                 GameObject listItem = _adapter.ModelToView(go);
+                
+                _layoutStrategy.SetItemTransform(listItem, this);
 
                 //cache
                 _modelToView[go] = listItem;

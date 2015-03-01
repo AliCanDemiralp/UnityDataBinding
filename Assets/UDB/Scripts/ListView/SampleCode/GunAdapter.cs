@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.UDB.Scripts.ListView.SampleCode
 {
@@ -15,7 +16,9 @@ namespace Assets.UDB.Scripts.ListView.SampleCode
             SlotConsumer scComponent = model.GetComponent<SlotConsumer>();
 
             //instantiate view prefab
-            GameObject view = (GameObject)GameObject.Instantiate(viewPrefab.gameObject);
+            var view = (GameObject)GameObject.Instantiate(viewPrefab.gameObject);
+
+            view.GetComponent<GunListItem>().SlotsTaken.text = scComponent.slotsConsumed.ToString();
 
             //TODO: ...
 
