@@ -2,7 +2,7 @@
 
 namespace Assets.UDB.Scripts.ListView
 {
-    interface IListViewLayoutStrategy
+    public interface IListViewLayoutStrategy
     {
         void SetItemTransform(GameObject item, ListView listView);
 

@@ -32,8 +32,8 @@ namespace Assets.UDB.Scripts.ListView
 
 
         [SerializeField]
-        private ICollection<GameObject> _models;
-        public ICollection<GameObject> Models
+        private List<GameObject> _models;
+        public List<GameObject> Models
         {
             set
             {
@@ -46,14 +46,22 @@ namespace Assets.UDB.Scripts.ListView
         void Start()
         {
             _modelToView = new Dictionary<GameObject, GameObject>();
+            _layoutStrategy = new GridViewStrategy(this);
             UpdateList();
         }
 
 
-        void Update()
+        private void Update()
         {
 
         }
+
+        public void FixedUpdate()
+        {
+
+        }
+
+
 
         /// <summary>
         /// TODO: Implement
