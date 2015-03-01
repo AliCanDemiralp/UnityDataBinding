@@ -21,6 +21,7 @@ namespace Assets.UDB.Scripts.ListView
 
         public void SetItemTransform(GameObject item, ListView listView)
         {
+            //simply childing to the parent will do for this. 
             item.transform.parent = _verticalLayout.transform;
         }
     }

@@ -8,7 +8,6 @@ namespace Assets.UDB.Scripts.ListView
     {
         private Dictionary<GameObject, GameObject> _modelToView;
 
-
         private IListViewLayoutStrategy _layoutStrategy;
         public IListViewLayoutStrategy LayoutStrategy
         {
@@ -42,14 +41,28 @@ namespace Assets.UDB.Scripts.ListView
             }
         }
 
+        [SerializeField]
+        private GameObject _defaultListItem;
+
+        void Awake()
+        {
+            _modelToView = new Dictionary<GameObject, GameObject>();
+            _layoutStrategy = new VerticalLayoutViewStrategy(this);           
+        }
 
         void Start()
         {
-            _modelToView = new Dictionary<GameObject, GameObject>();
-            _layoutStrategy = new VerticalLayoutViewStrategy(this);
+            if (_adapter == null)
+            {
+                Debug.LogWarning("ListView does not have an adapter. Setting to default."
+                + " Please implement IAdapter and set Adapter property of ListView."
+                + " Make sure that the MonoBehavior that sets the IAdapter is earlier than ListView"
+                + " in Edit->Project Settings->Script Execution Order.");
 
-            if(_adapter != null)
-                UpdateList();
+                _adapter = new TextListViewAdapter(_defaultListItem, this);
+            }
+
+            UpdateList();
         }
 
 
@@ -76,23 +89,25 @@ namespace Assets.UDB.Scripts.ListView
 
         private void UpdateList()
         {
-            _modelToView.Clear();
+            //clear the list
+            foreach (GameObject view in _modelToView.Values)
+                Destroy(view);
 
+            _modelToView.Clear();
 
             //Re-generate model to view.
             foreach (var go in _models)
             {
-                
+
                 //Inflate the view for the model using adapter;
                 GameObject listItem = _adapter.ModelToView(go);
-                
+
                 _layoutStrategy.SetItemTransform(listItem, this);
 
                 //cache
                 _modelToView[go] = listItem;
 
                 //TODO: ...
-
             }
         }
         #endregion
