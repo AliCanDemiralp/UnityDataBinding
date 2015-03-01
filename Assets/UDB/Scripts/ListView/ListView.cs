@@ -46,8 +46,10 @@ namespace Assets.UDB.Scripts.ListView
         void Start()
         {
             _modelToView = new Dictionary<GameObject, GameObject>();
-            _layoutStrategy = new GridViewStrategy(this);
-            UpdateList();
+            _layoutStrategy = new VerticalLayoutViewStrategy(this);
+
+            if(_adapter != null)
+                UpdateList();
         }
 
 
