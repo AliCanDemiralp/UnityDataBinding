@@ -18,9 +18,9 @@ namespace Assets.UDB.Scripts.ListView.SampleCode
             //instantiate view prefab
             GameObject view = (GameObject)Instantiate(viewPrefab);
 
-            GameObject slotDisplay = view.transform.FindChild(SlotDisplayChildName);
+            //TODO: ...
 
-            slotDisplay.GetComponent<
+            return view;            
         }
     }
 }
