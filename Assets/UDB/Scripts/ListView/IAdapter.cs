@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.UDB.ListView
+namespace Assets.UDB.Scripts.ListView
 {
     public interface IAdapter
     {
@@ -9,8 +9,8 @@ namespace Assets.UDB.ListView
         /// int a Unity UI GameObject (with a ScrollRect). Makes assumptions about which
         /// Components the model has. 
         /// </summary>
-        /// <param name="model">A Unity GameObject</param>
-        /// <returns></returns>
+        /// <param name="model">A Unity GameObject - model</param>
+        /// <returns>View</returns>
         GameObject ModelToView(GameObject model);
     }
 }

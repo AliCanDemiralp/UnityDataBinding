@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.UDB.ListView
+namespace Assets.UDB.Scripts.ListView
 {
     public class ListView : MonoBehaviour
     {
-        #region Editor
-        public List<GameObject> models;
-        #endregion
-
-
-
-
         private Dictionary<GameObject, GameObject> _modelToView;
+
+
+        private IListViewLayoutStrategy _layoutStrategy;
+        public IListViewLayoutStrategy LayoutStrategy
+        {
+            set
+            {
+                _layoutStrategy = value;
+                UpdateLayout();
+            }
+        }
 
 
         private IAdapter _adapter;
@@ -26,6 +31,7 @@ namespace Assets.UDB.ListView
         }
 
 
+        [SerializeField]
         private ICollection<GameObject> _models;
         public ICollection<GameObject> Models
         {
@@ -40,10 +46,6 @@ namespace Assets.UDB.ListView
         void Start()
         {
             _modelToView = new Dictionary<GameObject, GameObject>();
-
-            if (models == null)
-                models = new List<GameObject>();
-
             UpdateList();
         }
 
@@ -53,7 +55,15 @@ namespace Assets.UDB.ListView
 
         }
 
+        /// <summary>
+        /// TODO: Implement
+        /// </summary>
         #region Private
+        private void UpdateLayout()
+        {
+            //TODO: Implement
+        }
+
         private void UpdateList()
         {
             _modelToView.Clear();
@@ -62,13 +72,17 @@ namespace Assets.UDB.ListView
             //Re-generate model to view.
             foreach (var go in _models)
             {
+                
                 //Inflate the view for the model using adapter;
                 GameObject listItem = _adapter.ModelToView(go);
 
+                //cache
+                _modelToView[go] = listItem;
+
                 //TODO: ...
+
             }
         }
         #endregion
-
     }
 }
