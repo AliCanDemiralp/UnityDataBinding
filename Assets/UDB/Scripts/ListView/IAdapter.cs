@@ -11,6 +11,6 @@ namespace Assets.UDB.Scripts.ListView
         /// </summary>
         /// <param name="model">A Unity GameObject - model</param>
         /// <returns>View</returns>
-        GameObject ModelToView(GameObject model);
+        GameObject ModelToView(Object model);
     }
 }

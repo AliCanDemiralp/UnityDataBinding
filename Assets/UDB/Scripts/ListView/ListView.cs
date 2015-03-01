@@ -2,11 +2,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace Assets.UDB.Scripts.ListView
 {
+    public delegate void ItemSelected(Object selectedModel);
+
+
     public class ListView : MonoBehaviour
     {
-        private Dictionary<GameObject, GameObject> _modelToView;
+        public event ItemSelected OnItemSelected;
+
+        private Dictionary<Object, GameObject> _modelToView;
 
         private IListViewLayoutStrategy _layoutStrategy;
         public IListViewLayoutStrategy LayoutStrategy
@@ -31,8 +37,8 @@ namespace Assets.UDB.Scripts.ListView
 
 
         [SerializeField]
-        private List<GameObject> _models;
-        public List<GameObject> Models
+        private List<Object> _models;
+        public List<Object> Models
         {
             set
             {
@@ -42,12 +48,12 @@ namespace Assets.UDB.Scripts.ListView
         }
 
         [SerializeField]
-        private GameObject _defaultListItem;
+        private GameObject _defaltViewPrefab;
 
         void Awake()
         {
-            _modelToView = new Dictionary<GameObject, GameObject>();
-            _layoutStrategy = new VerticalLayoutViewStrategy(this);           
+            _modelToView = new Dictionary<Object, GameObject>();
+            _layoutStrategy = new VerticalLayoutViewStrategy(this);
         }
 
         void Start()
@@ -59,7 +65,7 @@ namespace Assets.UDB.Scripts.ListView
                 + " Make sure that the MonoBehavior that sets the IAdapter is earlier than ListView"
                 + " in Edit->Project Settings->Script Execution Order.");
 
-                _adapter = new TextListViewAdapter(_defaultListItem, this);
+                _adapter = new TextListViewAdapter(_defaltViewPrefab);
             }
 
             UpdateList();
@@ -78,9 +84,6 @@ namespace Assets.UDB.Scripts.ListView
 
 
 
-        /// <summary>
-        /// TODO: Implement
-        /// </summary>
         #region Private
         private void UpdateLayout()
         {
@@ -106,6 +109,21 @@ namespace Assets.UDB.Scripts.ListView
 
                 //cache
                 _modelToView[go] = listItem;
+
+                //if the view doesn't have a button element attached, attach it 
+                //and listen for presses. 
+                Button b = listItem.GetComponent<Button>();
+                if (b == null)
+                    b = listItem.AddComponent<Button>();
+
+                Object modelCapture = go;
+                b.onClick.AddListener(() =>
+                {
+                    if (OnItemSelected != null)
+                        OnItemSelected(modelCapture);
+                });
+
+
 
                 //TODO: ...
             }

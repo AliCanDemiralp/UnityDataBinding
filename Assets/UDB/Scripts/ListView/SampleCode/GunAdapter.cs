@@ -10,10 +10,10 @@ namespace Assets.UDB.Scripts.ListView.SampleCode
         public GunListItem viewPrefab;
         
         
-        public GameObject ModelToView(GameObject model)
+        public GameObject ModelToView(Object model)
         {
             //get number of slot consumed
-            SlotConsumer scComponent = model.GetComponent<SlotConsumer>();
+            SlotConsumer scComponent = (model as GameObject).GetComponent<SlotConsumer>();
 
             //instantiate view prefab
             var view = (GameObject)GameObject.Instantiate(viewPrefab.gameObject);
