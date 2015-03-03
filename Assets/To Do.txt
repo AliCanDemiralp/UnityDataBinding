@@ -1,3 +1,21 @@
-Proxy Binding?
+###################
+#       UDB		  #
+###################
+Proxy Binding
 Comments
 Testing & Demos
+
+###################
+#       UIX		  #
+###################
+List View
+	Destroy and remove unused cached items
+	Resize grid accordingly
+	Make scrollbars visible / invisible if necessary / unnecessary
+Tab View
+Grid View
+
+###################
+#       UCL		  #
+###################
+Bug with using up arrow the first time
