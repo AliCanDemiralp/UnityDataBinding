@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+using Assets.UDB.Scripts.Core.Extensions;
 using Mono.CSharp;
 using UnityEngine;
 
@@ -119,14 +121,11 @@ namespace Assets.UDB.Scripts.Core
                 return;
             }
 
-            Evaluator.Init(new string[] { });
-            Evaluator.ReferenceAssembly(Assembly.GetExecutingAssembly());
-            Evaluator.Run("using System;");
-            Evaluator.Run("using UnityEngine;");
+            EvaluatorExtensions.Prepare();
             try
             {
                 FormatMethod = (Func<object, object>)Evaluator.Evaluate("new Func<object, object>((src) => { " +
-                    Source.Type + " source = (" + Source.Type + ") src;" + FormatString + " });");
+                    Source.Type.GetCodeForm() + " source = (" + Source.Type.GetCodeForm() + ") src;" + FormatString + " });");
             }
             catch (Exception)
             {
