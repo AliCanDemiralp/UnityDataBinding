@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.UDB.Scripts.Core.Extensions;
+using UnityEngine.DataBinding.Extensions;
 using Mono.CSharp;
-using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.UIX.Scripts
+namespace UnityEngine.UI.Extensions
 {
     public class ListView : MonoBehaviour
     {
@@ -30,11 +28,15 @@ namespace Assets.UIX.Scripts
         private readonly Dictionary<object, GameObject> _cache 
                    = new Dictionary<object, GameObject>();
 
-        private void OnEnable()
+        private void Start()
         {
-            var scrollRect = transform.FindChild("Scroll Rectangle").GetComponent<ScrollRect>();
-            scrollRect.verticalNormalizedPosition   = 0;
-            scrollRect.horizontalNormalizedPosition = 0;
+            // Adjust grid size to list item boundary.
+            if (ListItem != null)
+            {
+                var gridLayout          = GetComponentInChildren<GridLayoutGroup>();
+                var listItemTransform   = (RectTransform) ListItem.transform;
+                // TODO - Get boundary of list item and set grid cell size to it.
+            }
         }
         private void Update()
         {

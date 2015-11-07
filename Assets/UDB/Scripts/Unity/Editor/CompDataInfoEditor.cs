@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
-using Assets.UDB.Scripts.Unity.Info;
 using UnityEditor;
-using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity.Editor
+namespace UnityEngine.DataBinding.Editor
 {
     [CustomPropertyDrawer(typeof(CompDataInfo))]
     public class CompDataInfoEditor : CompMemberInfoEditor 

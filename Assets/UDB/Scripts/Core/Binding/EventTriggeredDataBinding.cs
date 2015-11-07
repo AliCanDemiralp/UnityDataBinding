@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.UDB.Scripts.Core
+namespace UnityEngine.DataBinding
 {
     public class EventTriggeredDataBinding : IDisposable
     {

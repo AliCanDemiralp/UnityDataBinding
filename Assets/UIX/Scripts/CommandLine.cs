@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.UDB.Scripts.Core.Extensions;
+using UnityEngine.DataBinding.Extensions;
 using Mono.CSharp;
-using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.UCL.Scripts
+namespace UnityEngine.UI.Extensions
 {
     public class CommandLine : MonoBehaviour
     {
@@ -39,13 +37,6 @@ namespace Assets.UCL.Scripts
                 }
             }
         
-            if (Input.GetKeyUp(KeyCode.Return))
-            {
-                InputField.text = "";
-                InputField.Select();
-                InputField.ActivateInputField();
-            }
-
             if (InputField.isFocused)
             {
                 if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -83,7 +74,10 @@ namespace Assets.UCL.Scripts
             _historyRefIndex = _commandHistory.Count;
 
             FeedText.text += "\n" + command;
-            FeedScrollbar.value = 0.0F;
+
+            InputField.text = " ";
+            InputField.Select();
+            InputField.ActivateInputField();
         }
     }
 }

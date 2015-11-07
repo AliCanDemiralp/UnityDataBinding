@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace Assets.UDB.Scripts.Core.Extensions
+namespace UnityEngine.DataBinding.Extensions
 {
     public static class TypeExtensions
     {

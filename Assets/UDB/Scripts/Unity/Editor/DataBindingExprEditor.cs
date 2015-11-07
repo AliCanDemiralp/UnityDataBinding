@@ -1,9 +1,6 @@
-﻿using System;
-using Assets.UDB.Scripts.Core;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
-namespace Assets.UDB.Scripts.Unity.Editor
+namespace UnityEngine.DataBinding.Editor
 {
     [CustomPropertyDrawer(typeof(DataBindingExpr))]
     public class DataBindingExprEditor : PropertyDrawer

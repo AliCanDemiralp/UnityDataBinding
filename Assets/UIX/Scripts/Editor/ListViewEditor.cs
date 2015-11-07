@@ -1,8 +1,6 @@
-﻿using Assets.UIX.Scripts;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEditor;
 
-namespace Assets.UIX.Editor
+namespace UnityEngine.UI.Extensions.Editor
 {
     [CustomEditor(typeof(ListView))]
     public class ListViewEditor : UnityEditor.Editor 
@@ -19,7 +17,7 @@ namespace Assets.UIX.Editor
             listView.ListItem = (GameObject) EditorGUILayout.ObjectField("List Item", listView.ListItem, typeof(GameObject), false);
 
             if (GUILayout.Button("Edit Adapter Function", EditorStyles.popup))
-                UDB.Scripts.Unity.Editor.TextEditor.Show(
+                DataBinding.Editor.TextEditor.Show(
                     "List Adapter Function Editor",
                     "Please enter the format below.\nYou can use 'data' and 'view' as references.\nExample: view.GetComponent<Text>.text = data.Name;",
                     listView.AdapterString, (text) => { ((ListView)target).AdapterString = text; });

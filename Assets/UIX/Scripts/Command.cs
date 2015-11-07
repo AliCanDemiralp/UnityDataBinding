@@ -1,4 +1,4 @@
-﻿namespace Assets.UCL.Scripts
+﻿namespace UnityEngine.UI.Extensions
 {
     class Command
     {

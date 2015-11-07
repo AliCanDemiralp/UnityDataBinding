@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Assets.UDB.Scripts.Core
+namespace UnityEngine.DataBinding
 {
     public abstract class MemberRef 
     {

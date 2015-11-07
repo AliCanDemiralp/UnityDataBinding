@@ -1,10 +1,9 @@
-﻿using Assets.UDB.Scripts.Core;
-using Assets.UDB.Scripts.Unity.Info;
+﻿using UnityEngine.DataBinding;
 using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity.Binding
+namespace UnityEngine.DataBinding
 {
-    public class EventTriggeredDataBinding : MonoBehaviour
+    public class EventTriggeredDataBindingComponent : MonoBehaviour
     {
         public bool BindAtStart     = true;
         public bool UpdateAtStart   = true;
@@ -15,7 +14,7 @@ namespace Assets.UDB.Scripts.Unity.Binding
 
         public DataBindingExpr      DataBindingExpr;
 
-        private Core.EventTriggeredDataBinding _coreDataBinding;
+        private UnityEngine.DataBinding.EventTriggeredDataBinding _coreDataBinding;
 
         public void Bind()
         {
@@ -34,7 +33,7 @@ namespace Assets.UDB.Scripts.Unity.Binding
             DataBindingExpr.Target = TargetInfo.Ref;
 
             if (_coreDataBinding == null)
-                _coreDataBinding = new Core.EventTriggeredDataBinding();
+                _coreDataBinding = new UnityEngine.DataBinding.EventTriggeredDataBinding();
             if (!_coreDataBinding.Setup(DataBindingExpr, TriggerEventInfo.Ref))
             {
                 Debug.Log("Event-triggered data binding setup failure!");

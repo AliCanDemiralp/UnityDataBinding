@@ -1,9 +1,11 @@
 ###################
 #       UDB		  #
 ###################
+More Editor Scripting
 Proxy Binding
 Comments
 Testing & Demos
+Efficiency (Value Cache)
 
 ###################
 #       UIX		  #
@@ -11,11 +13,5 @@ Testing & Demos
 List View
 	Destroy and remove unused cached items
 	Resize grid accordingly
-	Make scrollbars visible / invisible if necessary / unnecessary
 Tab View
 Grid View
-
-###################
-#       UCL		  #
-###################
-Bug with using up arrow the first time

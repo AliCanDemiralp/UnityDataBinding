@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Assets.UDB.Scripts.Core
+namespace UnityEngine.DataBinding
 {
     public class DataRef : MemberRef
     {

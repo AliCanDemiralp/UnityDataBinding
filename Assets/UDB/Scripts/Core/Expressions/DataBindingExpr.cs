@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
-using Assets.UDB.Scripts.Core.Extensions;
 using Mono.CSharp;
-using UnityEngine;
+using UnityEngine.DataBinding.Extensions;
 
-namespace Assets.UDB.Scripts.Core
+namespace UnityEngine.DataBinding
 {
     public enum BindingMode
     {

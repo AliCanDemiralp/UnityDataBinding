@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using Assets.UDB.Scripts.Core;
 
-namespace Assets.UDB.Scripts.Unity.Info
+namespace UnityEngine.DataBinding
 {
     [Serializable]
     public class CompDataInfo : CompMemberInfo<DataRef>

@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity.Editor
+namespace UnityEngine.DataBinding.Editor
 {
     public abstract class CompMemberInfoEditor : PropertyDrawer
     {

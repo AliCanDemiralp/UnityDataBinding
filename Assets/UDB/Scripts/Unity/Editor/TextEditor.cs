@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity.Editor
+namespace UnityEngine.DataBinding.Editor
 {
     public class TextEditor : ScriptableWizard
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Assets.UIX.Scripts;
+using UnityEngine.UI.Extensions;
 using UnityEngine;
 
 public class Test : MonoBehaviour 

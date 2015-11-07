@@ -1,8 +1,7 @@
-﻿using Assets.UDB.Scripts.Core;
-using Assets.UDB.Scripts.Unity.Info;
+﻿using UnityEngine.DataBinding;
 using UnityEngine;
 
-namespace Assets.UDB.Scripts.Unity.Binding
+namespace UnityEngine.DataBinding
 {
     public enum PeriodicMethod
     {

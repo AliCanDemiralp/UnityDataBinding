@@ -2,7 +2,7 @@
 using System.Reflection;
 using Mono.CSharp;
 
-namespace Assets.UDB.Scripts.Core.Extensions
+namespace UnityEngine.DataBinding.Extensions
 {
     public static class EvaluatorExtensions
     {

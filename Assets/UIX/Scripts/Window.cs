@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine.EventSystems;
 
-namespace Assets.UIX.Scripts
+namespace UnityEngine.UI.Extensions
 {
     public class Window : MonoBehaviour 
     {
